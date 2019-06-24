@@ -25,6 +25,6 @@ router.get("/login", (req, res) =>
 router.use("/user", require("./usuario"));
 router.use("/api/pacientes", require("./paciente"));
 router.use("/api/medicos", require("./medicos"));
-// router.use('/api/consultas', require('./consultas'));
+router.use('/con', require('./atendimentos'));
 
 module.exports = router;
