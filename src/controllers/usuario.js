@@ -20,7 +20,7 @@ exports.get = (req, res) => {
   console.log('ver usuario');
   usuario.get(req, res)
   .then(result => { //sucess
-    res.render('list', { title: req.body.login , data: result});
+    // res.render('list', { title: req.body.login , data: result});
     console.log(result);
   }, function(err){
     res.status(400).send(err); // fail
