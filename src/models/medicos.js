@@ -2,40 +2,70 @@ const helpers = require("../helpers/helpers.js");
 
 let medicos = function() {};
 
-medicos.prototype.get = function(req, res, callback) {
-  let filter = "";
-  if (req.params.id) filter = "WHERE id=" + parseInt(req.params.id);
-  helpers.execSqlQuery("SELECT * FROM medico " + filter + ";", res);
+medicos.prototype.get = function(req, res) {
+  console.log('ver medicos unico/varios');
+  return new Promise((resolve, reject) => {
+    let filter = "";
+    if (req.params.id) filter = "WHERE id=" + parseInt(req.params.id);
+    helpers.execNoPromise(`SELECT * FROM medicos '${filter}';`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  });
 };
 
-medicos.prototype.create = function(req, res, callback) {
-  const nome = req.body.nome.substring(0, 150);
-  const crm = req.body.crm.substring(0, 10);
-  const emisor = req.body.emisor.substring(0, 2);
-
-  helpers.execSqlQuery(
-    `INSERT INTO medico (nome, crm, emisor) VALUES ('${nome}','${crm}','${emisor}');`,
-    res
-  );
+medicos.prototype.ver = function(req, res) {
+  console.log('ver medicos');
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`SELECT * FROM medicos;`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
 };
 
-medicos.prototype.update = function(req, res, callback) {
-  const id = parseInt(req.params.id);
-  const nome = req.body.nome.substring(0, 150);
-  const crm = req.body.crm.substring(0, 10);
-  const emisor = req.body.emisor.substring(0, 2);
-
-  helpers.execSqlQuery(
-    `UPDATE medico SET nome='${nome}', crm='${crm}', emisor='${emisor}' WHERE id=${id};`,
-    res
-  );
+medicos.prototype.criar = function(req, res) {
+  console.log('criando medico');
+  let nome = req.body.nome;
+  let crm = req.body.crm;
+  let emissor = req.body.emissor;
+  let nascimento = req.body.nascimento;
+  let especialidade = req.body.especialidade;
+  // idUsuario int(11)
+  
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`INSERT INTO medicos (nome, crm, emissor, nascimento, idEspecialidade, idUsuario) VALUES ('${nome}','${crm}','${emissor}','${nascimento}','${especialidade}', LAST_INSERT_ID());`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
 };
 
-medicos.prototype.remove = function(req, res, callback) {
-  helpers.execSqlQuery(
-    "DELETE FROM medico WHERE id=" + parseInt(req.params.id) + ";",
-    res
-  );
+medicos.prototype.atualizar = function(req, res) {
+  console.log('atualizar medico');
+  let nome = req.body.nome;
+  let crm = req.body.crm;
+  let emissor = req.body.emissor;
+  let nascimento = req.body.nascimento;
+  let especialidade = req.body.especialidade;
+  // idUsuario int(11)
+
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`UPDATE medicos SET nome='${nome}', crm='${crm}', emissor='${emissor}', nascimento='${nascimento}', especialidade='${especialidade}' WHERE id='${id}';`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })  
+};
+
+medicos.prototype.remover = function(req, res) {
+  console.log('deletar medico');
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`DELETE FROM medicos WHERE id=` + parseInt(req.params.id), (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
 };
 
 module.exports = new medicos();

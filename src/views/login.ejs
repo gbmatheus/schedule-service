@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <body>
+    <h1>Login</h1>
+    <form action="/user/login" method="POST">
+      <input name="username" type="text" placeholder="Digite seu usuário" /><br />
+      <input name="password" type="password" placeholder="Digite sua senha" /><br />
+      <input type="submit" value="Entrar" />
+    </form>
+    <% if(message) { %>
+      <p>
+        <label style="color:Red"><%= message %></label>
+      </p>
+    <%}%>
+    <p>
+      <a href="/forgot">Esqueceu sua senha?</a>   |   <a href="/register">Não possui cadastro?</a>
+    </p>
+  </body>
+</html>

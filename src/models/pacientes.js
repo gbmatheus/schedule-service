@@ -1,53 +1,69 @@
 const helpers = require("../helpers/helpers.js");
 
-let pacientes = function() {};
+let paciente = function() {};
 
-pacientes.prototype.get = function(req, res, callback) {
-  let filter = "";
-  if (req.params.id) filter = "WHERE id=" + parseInt(req.params.id);
-  helpers.execSqlQuery("SELECT * FROM pacientes " + filter + ";", res);
-
-  console.log("Função get!");
+paciente.prototype.get = function(req, res) {
+  console.log('ver usuario unico/varios');
+  return new Promise((resolve, reject) => {
+    let filter = "";
+    if (req.params.id) filter = "WHERE id=" + parseInt(req.params.id);
+    helpers.execNoPromise(`SELECT * FROM pacientes '${filter}';`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  });
 };
 
-pacientes.prototype.create = function(req, res, callback) {
-  console.log("Função create 1", req.body.nome);
-  console.log("Função create 2 ", req.params.nome);
-
-  const nome = req.body.nome.substring(0, 150);
-  const cpf = req.body.cpf.substring(0, 11);
-  const sexo = req.body.sexo.substring(0, 1);
-
-  helpers.execSqlQuery(
-    `INSERT INTO pacientes (nome, cpf, sexo) VALUES ('${nome}','${cpf}','${sexo}');`,
-    res
-  );
-
-  // console.log("Função create 1", req.body.nome);
-  // console.log("Função create 2 ", req.params.nome);
+paciente.prototype.ver = function(req, res) {
+  console.log('ver model');
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`SELECT * FROM pacientes;`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
 };
 
-pacientes.prototype.update = function(req, res, callback) {
+paciente.prototype.criar = function(req, res) {
+  let nome = req.body.nome;
+  let cpf = req.body.cpf;
+  let sexo = req.body.sexo;
+  let nascimento = req.body.nascimento;
+
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`INSERT INTO pacientes (nome, cpf, sexo, nascimento, idUsuario) VALUES ('${nome}','${cpf}','${sexo}','${nascimento}', LAST_INSERT_ID());`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
+};
+
+paciente.prototype.update = function(req, res, callback) {
+  console.log('atualizar paciente');
   const id = parseInt(req.params.id);
-  const nome = req.body.nome.substring(0, 150);
-  const cpf = req.body.cpf.substring(0, 11);
-  const sexo = req.body.sexo.substring(0, 1);
-
-  helpers.execSqlQuery(
-    `UPDATE pacientes SET nome='${nome}', cpf='${cpf}', sexo='${sexo}' WHERE id=${id};`,
-    res
-  );
+  const nome = req.body.nome;
+  const cpf = req.body.cpf;
+  const sexo = req.body.sexo;
+  const nascimento = req.body.nascimento;
+  
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`UPDATE pacientes SET nome='${nome}', cpf='${cpf}', sexo='${sexo}', nascimento='${nascimento}' WHERE id='${id}';`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })  
 
   console.log("Função update");
 };
 
-pacientes.prototype.remove = function(req, res, callback) {
-  helpers.execSqlQuery(
-    "DELETE FROM pacientes WHERE id=" + parseInt(req.params.id) + ";",
-    res
-  );
-
-  console.log("Função delete!");
+paciente.prototype.remover = function(req, res) {
+  console.log('deletar paciente');
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`DELETE FROM pacientes WHERE id=` + parseInt(req.params.id), (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
 };
 
 module.exports = new pacientes();

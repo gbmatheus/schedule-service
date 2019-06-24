@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 connection.connect(function (err) {
     if(err)
         return console.log(err);
-    console.log('Conexão OK!'); 
+    console.log('Conexão DB OK!'); 
 });
 
 // connection.Promise = global.Promise;

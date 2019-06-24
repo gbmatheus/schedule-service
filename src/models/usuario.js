@@ -1,36 +1,42 @@
-const helpers = require("../helpers/helpers.js");
+const helpers = require('../helpers/helpers.js');
 
 let usuario = function() {};
 
-usuario.prototype.get = function(req, res, callback) {
-  // usuario.prototype.login = function (user, res, callback) {
-  let login = req.body.login;
-  let password = req.body.senha;
-  
-  console.log('teste req - ',req.body);
-  console.log('teste req params',req.params);
-  
-  helpers.execSqlQuery(
-    `SELECT * FROM usuarios WHERE login='${login}' AND senha='${password}'`,
-    res
-  );
+usuario.prototype.ver = function(req, res) {
+  console.log('ver model');
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`SELECT * FROM usuarios WHERE permissao!='a';`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
 };
 
-usuario.prototype.create = function(req, res, callback) {
-  let login = req.body.login//.substring(0, 50);
-  let password = req.body.senha//.substring(0, 30);
-  let tipo = req.body.tipo//.substring(0, 30);
+usuario.prototype.criar = function(req, res) {
+  let login = req.body.username;
+  let senhaHash = req.body.password;
+  // let senhaHash = helpers.generateHash(req.body.password);
+  let tipo = req.body.typeUser;
 
-  helpers.execSqlQuery(
-    `INSERT INTO usuarios (login, senha, tipo) VALUES ('${login}','${password}','${tipo}');`,
-    res
-  );
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`INSERT INTO usuarios (login, senha, permissao) VALUES ('${login}','${senhaHash}','${tipo}');`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
 };
 
-usuario.prototype.show = function(req, res, callback) {
-  // usuario.prototype.login = function (user, res, callback) {
-  helpers.execSqlQuery("SELECT * FROM usuarios", res);
-  
+usuario.prototype.entrar = function(req, res) {
+  let login = req.body.username;
+  let senhaHash = req.body.password;
+  // let senhaHash = helpers.generateHash(req.body.password);
+
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(`SELECT * FROM usuarios WHERE login='${login}' AND senha='${senhaHash}'`, (error, results) => {
+      if (error) return reject(error);
+      else resolve(results);
+    });
+  })
 };
 
 module.exports = new usuario();
