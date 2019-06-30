@@ -12,9 +12,9 @@ helpFunctions.prototype.generateHash = function(password) {
 };
 
 // Comparador de senha da tela de logar no sistema
-// helpFunctions.prototype.validPassword = function(password, oldPassword) {
-//   return bcrypt.compareSync(password, oldPassword, null);
-// };
+helpFunctions.prototype.validPassword = function(password, oldPassword) {
+  return bcrypt.compare(password, oldPassword);
+};
 
 helpFunctions.prototype.execSqlQuery = function(sqlQry, res) {
   mysqlConn.query(sqlQry, function(error, results, fields) {
@@ -46,23 +46,20 @@ helpFunctions.prototype.endConn = () => {
   mysqlConn.end();
 };
 
-helpFunctions.prototype.generateToken = id => {
-  var token = jwt.sign({ id }, process.env.SECRET);
+helpFunctions.prototype.generateToken = (id, permission) => {
+  var token = jwt.sign({ id, permission }, process.env.SECRET, {
+    expiresIn: 7200//expira em 2 horas
+  });
   return token;
 };
 
 helpFunctions.prototype.verifyJWT = (req, res, next) => {
   var token = req.headers["x-access-token"];
   if (!token)
-    return res
-      .status(401)
-      .send({ auth: false, message: "No token provided. " });
+    return res.status(401).send({ auth: false, message: "No token provided. " });
 
   jwt.verify(token, process.env.SECRET, (err, decode) => {
-    if (err)
-      return res
-        .status(500)
-        .send({ auth: false, message: "Failed to autheticate token" });
+    if (err) return res.status(500).send({ auth: false, message: "Failed to autheticate token" });
 
     //se tudo estiver ok, salve no request para uso posterior
     req.userID = decode.id;
