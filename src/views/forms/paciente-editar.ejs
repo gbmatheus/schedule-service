@@ -1,13 +1,18 @@
+<!--Cabeçalho-->
+<%- include('../layouts/register-header.ejs', {title: 'Editar Paciente', page: 'Editar Paciente'}); %>
 <!-- justify-content-center -->
 <div class="row justify-content-center">
   <div class="col-md-8">
-    <h4 class="mb-4">Informações do usuário</h4>
+    <h4 class="mb-4">Informações da Paciente</h4>
 
-    <form class="needs-validation" action="/usuarios" method="POST" novalidate>
+    <form class="needs-validation" action="/pacientes/edit/<%= data.id %>" method="POST" novalidate>
+      <input type="hidden" class="form-control" id="idUsuario" name="idUsuario" placeholder=""
+        value="<%= data.idUsuario %>" required>
 
       <div class="mb-3">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" placeholder="" value="" required>
+        <input type="text" class="form-control text-capitalize" id="nome" name="nome" placeholder=""
+          value="<%= data.nome %>" required>
         <div class="invalid-feedback">
           É obrigatório inserir um nome válido.
         </div>
@@ -17,10 +22,10 @@
         <div class="col-md-4 mb-3">
           <label for="sexo">Sexo</label>
           <select class="custom-select d-block w-100" id="sexo" name="sexo" required>
-            <option value="">Escolha...</option>
-            <option>Masculino</option>
-            <option>Feminino</option>
-            <option>Outros</option>
+            <option value="<%= data.sexo %>"><%= data.sexo %></option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+            <option value="O">Outros</option>
           </select>
           <div class="invalid-feedback">
             Sexo é obrigatória.
@@ -28,15 +33,18 @@
         </div>
         <div class="col-md-4 mb-3">
           <label for="nascimento">Data de nascimento</label>
-          <input type="date" class="form-control" id="nascimento" name="nascimento" max="2019-06-01" placeholder="" required>
+          <input type="date" class="form-control" id="nascimento" name="nascimento"
+            placeholder="<%= data.nascimento.getFullYear() %>-<%= data.nascimento.getMonth() %>-<%= data.nascimento.getDate() %>"
+            value="<%= data.nascimento.getFullYear() %>-<%= data.nascimento.getMonth() %>-<%= data.nascimento.getDate() %>"
+            required>
           <div class="invalid-feedback">
             Data de nascimento é obrigatório.
           </div>
         </div>
         <div class="col-md-4 mb-3">
           <label for="cpf">CPF</label>
-          <!-- <input type="text" class="form-control" id="cpf" name="cpf" placeholder="" required> -->
-          <input type="text" class="form-control" id="cpf" name="cpf" placeholder="" onkeyup="mascara('###.###.###-##',this,event,true)" maxlength="14" required>
+          <input type="text" class="form-control" id="cpf" name="cpf" placeholder="" value="<%= data.cpf %>"
+            onkeyup="mascara('###.###.###-##',this,event,true)" maxlength="14" required>
           <div class="invalid-feedback">
             CPF é obrigatório.
           </div>
@@ -50,7 +58,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">@</span>
             </div>
-            <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Digite seu usuário"
+            <input type="text" class="form-control text-lowercase" id="usuario" name="usuario" placeholder="" value="<%= data.login %>"
               required>
             <div class="invalid-feedback" style="width: 100%;">
               Seu usuário é obrigatório.
@@ -59,7 +67,8 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="senha">Senha</label>
-          <input type="text" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" minlength=8 required>
+          <input type="text" class="form-control" id="senha" name="senha" placeholder="" value="<%= data.senha %>"
+            minlength="8" required>
           <div class="invalid-feedback">
             Senha é obrigatório.
           </div>
@@ -68,7 +77,8 @@
 
       <div class="mb-3">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="fulano@exemplo.com" required>
+        <input type="email" class="form-control" id="email" name="email" placeholder="" value="<%= data.conEmail %>"
+          required>
         <div class="invalid-feedback">
           Por favor, insira um endereço de e-mail válido, para atualizações de entrega.
         </div>
@@ -76,14 +86,16 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="telefone">Telefone<span class="text-muted">(Opcional)</span></label>
-          <input type="text" class="form-control" id="telefone" name="telefone" placeholder="" required>
+          <input type="text" class="form-control" id="telefone" name="telefone" placeholder=""
+            value="<%= data.conTelefone %>" required>
           <div class="invalid-feedback">
             Por favor, insira um número de telefone válido.
           </div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="celular">Celular</label>
-          <input type="text" class="form-control" id="celular" name="celular" placeholder="" required>
+          <input type="text" class="form-control" id="celular" name="celular" placeholder=""
+            value="<%= data.conCelular %>" required>
           <div class="invalid-feedback">
             Por favor, insira um número de celular válido.
           </div>
@@ -93,15 +105,16 @@
       <div class="row">
         <div class="col-md-10 mb-3">
           <label for="endereco">Endereço</label>
-          <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Rua dos bobos, nº 0"
-            required>
+          <input type="text" class="form-control text-capitalize" id="endereco" name="endereco" placeholder=""
+            value="<%= data.endLogradouro %>" required>
           <div class="invalid-feedback">
             Por favor, insira seu endereço de entrega.
           </div>
         </div>
         <div class="col-md-2 mb-3">
           <label for="endNumero">Número</label>
-          <input type="text" class="form-control" id="endNumero" name="numero" placeholder="" required>
+          <input type="text" class="form-control" id="endNumero" name="numero" placeholder=""
+            value="<%= data.endNumero %>" required>
           <div class="invalid-feedback">
             Por favor, insira um número de endereço válido.
           </div>
@@ -111,11 +124,13 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="complemento">Complemento<span class="text-muted">(Opcional)</span></label>
-          <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Apartamento ou casa">
+          <input type="text" class="form-control text-capitalize" id="complemento" name="complemento"
+            placeholder="Apartamento ou casa">
         </div>
         <div class="col-md-6 mb-3">
           <label for="bairro">Bairro</label>
-          <input type="text" class="form-control" id="bairro" name="bairro" placeholder="" required>
+          <input type="text" class="form-control text-capitalize" id="bairro" name="bairro" placeholder=""
+            value="<%= data.endBairro %>" required>
           <div class="invalid-feedback">
             É obrigatório inserir um bairro.
           </div>
@@ -125,7 +140,8 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="cidade">Cidade</label>
-          <input type="text" class="form-control" id="cidade" name="cidade" placeholder="" required>
+          <input type="text" class="form-control text-capitalize" id="cidade" name="cidade" placeholder=""
+            value="<%= data.endCidade %>" required>
           <div class="invalid-feedback">
             É obrigatório inserir um cidade.
           </div>
@@ -133,7 +149,7 @@
         <div class="col-md-2 mb-3">
           <label for="endUF">UF</label>
           <select class="custom-select d-block w-100" id="endUF" name="uf" required>
-            <option value="">Escolha...</option>
+            <option value="<%= data.idUF %>"><%= data.Uf %></option>
             <!-- Arquivos com os estados-->
             <%- include uf.ejs %>
 
@@ -144,20 +160,21 @@
         </div>
         <div class="col-md-4 mb-3">
           <label for="cep">CEP</label>
-          <input type="text" class="form-control" id="cep" name="cep" placeholder="" onkeyup="mascara('##.###-###',this,event,true)" maxlength="10" required>
+          <input type="text" class="form-control" id="cep" name="cep" placeholder="" value="<%= data.endCep %>"
+            onkeyup="mascara('##.###-###',this,event,true)" maxlength="10" required>
           <div class="invalid-feedback">
             É obrigatório inserir um CEP.
           </div>
         </div>
       </div>
+
       <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
+      <div class="row">
+        <button class="btn btn-primary btn-md mx-auto" type="submit">Salvar</button>
+        <button class="btn btn-danger btn-md mx-auto" type="reset">Cancelar</button>
+      </div>
     </form>
-    <div class="text-center">
-      <a class="small" href="/forgot">Esqueceu a senha?</a>
-    </div>
-    <div class="text-center">
-      <a class="small" href="/login">Já possui uma conta?</a>
-    </div>
   </div>
 </div>
+<!--Rodapé-->
+<%- include ../layouts/register-footer.ejs %>

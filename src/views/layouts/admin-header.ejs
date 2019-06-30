@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Jekyll v3.8.5">
-  <title>Dashboard Template · Bootstrap</title>
+  <title><%= title %></title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/dashboard/">
 
@@ -38,7 +38,8 @@
 
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Administrador</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><span data-feather="user"></span>
+      Administrador</a>
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
     <ul class="navbar-nav px-3 mx-3 bg-secudary">
       <li class="nav-item text-nowrap">
@@ -53,37 +54,37 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" id="dash" href="/admin">
                 <span data-feather="home"></span>
                 Dashboard <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/user">
+              <a class="nav-link" id="pacientes" href="/pacientes">
                 <span data-feather="users"></span>
                 Pacientes
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/user">
+              <a class="nav-link" id="medicos" href="/medicos">
                 <span data-feather="users"></span>
                 Médicos
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="javascript:void(0);">
+              <a class="nav-link" id="consulta" href="/atendimentos">
                 <span data-feather="calendar"></span>
                 Consultas
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" id="itens" href="#">
                 <span data-feather="box"></span>
                 Itens
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" id="resultados" href="#">
                 <span data-feather="clipboard"></span>
                 Resultados
               </a>
@@ -91,7 +92,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#">
                 <span data-feather="credit-card"></span>
-                Faturamento
+                Reports
               </a>
             </li>
             <li class="nav-item">
@@ -136,65 +137,3 @@
           </ul>
         </div>
       </nav>
-
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-              <span data-feather="calendar"></span>
-              This week
-            </button>
-          </div>
-        </div>
-
-        <h3><%= title %></h3>
-        <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>Médicos</th>
-                <th>CRM</th>
-                <th>Pacientes</th>
-                <th>CPF</th>
-                <th>Data</th>
-                <th>Horário</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% if (data) { %> <%data.forEach((atendimento) => { %>
-              <tr>
-                <td><%= atendimento.med %></td>
-                <td><%= atendimento.crm %>/<%= atendimento.emissor %></td>
-                <td><%= atendimento.pac %></td>
-                <td><%= atendimento.cpf %></td>
-                <td><%= atendimento.dataC %></td>
-                <td><%= atendimento.hora %></td>
-              </tr>
-              <% }) %> <% } %>
-
-            </tbody>
-          </table>
-        </div>
-      </main>
-    </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-  <script src="/js/bootstrap.bundle.min.js"
-    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
-    crossorigin="anonymous"></script>
-  <script src="/js/dashboard/feather.min.js"></script>
-  <script src="/js/dashboard/Chart.min.js"></script>
-  <script src="/js/dashboard/dashboard.js"></script>
-</body>
-
-</html>

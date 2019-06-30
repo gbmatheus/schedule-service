@@ -1,0 +1,62 @@
+<!--Cabecalho-->
+<%- include('../layouts/admin-header.ejs', { title: 'Admin - Pacientes' }); %>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Pacientes</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <button type="button" class="btn btn-sm btn-primary mx-1">
+        <span data-feather="plus-square"></span>
+        Adicionar Paciente
+      </button>
+      <button type="button" class="btn btn-sm btn-secondary mx-1">
+        <span data-feather="search"></span>
+        Buscar Paciente
+      </button>
+    </div>
+  </div>
+
+  <h3><%= table %></h3>
+  <div class="table-responsive">
+    <table class="table table-hover table-sm">
+      <!--classe antiga -> table-striped-->
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Sexo</th>
+          <th>Date de Nascimento</th>
+          <th>CPF</th>
+          <th>Login</th>
+          <th>Senha</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tbody> -->
+        <% if (data) { %> <%data.forEach((user) => { %>
+        <tr>
+          <td><%= user.id %></td>
+          <td class="text-capitalize"><%= user.nome %></td>
+          <td><%= user.sexo %></td>
+          <td><%= user.nascimento.getDate() %>/<%= user.nascimento.getMonth() %>/<%= user.nascimento.getFullYear() %></td>
+          <td><%= user.cpf %></td>
+          <td><%= user.login %></td>
+          <td><%= user.senha %></td>
+          <td class="row">
+            <a class="btn btn-secondary btn-sm mr-1" href="/pacientes/edit/<%= user.id %>">Editar</a>
+            <form action="/pacientes/del/<%= user.id %>" method="POST">
+              <button class="btn btn-danger btn-sm mr-1" type="submit">Excluir</button>
+            </form>
+          </td>
+        </tr>
+        <% }) %> <% } %>
+        <!-- </tbody> -->
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<!--Rodapé-->
+<%- include ../layouts/admin-footer.ejs %>

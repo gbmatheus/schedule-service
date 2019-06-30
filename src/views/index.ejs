@@ -1,99 +1,55 @@
+<!-- include layouts/header.ejs % -->
+<!--Cabeçalho-->
+<%- include('layouts/index-header.ejs', {title: 'Plus'}); %>
 
-<!doctype html>
-<html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/img/favicon.ico">
+<main role="main">
 
-    <title>Template Jumbotron, usando Bootstrap.</title>
+  <!-- Principal jumbotron, para a principal mensagem de marketing ou call to action -->
+  <div class="jumbotron  text-light" style="background-color: rgb(26, 187, 156);">
+    <div class="container">
+      <h1 class="display-2 font-weight-light">PLUS - bem estar e saúde</h1>
+      <p>Plus - bem estar e saúde. É um serviço que busca realizar agendamento de consulta, agilizar o atendimento, além
+        de buscas locais mais próximo do usuário. Este é um template para um simples marketing ou website informacional.
+        Ele inclui um callout grande (denominado jumbotron) e três conteúdos adicionais. Use-o como um ponto de partida
+        para algo mais peculiar.</p>
+      <p><a class="btn btn btn-outline-light btn-lg mt-3" href="/register" role="button">Fazer cadastro &raquo;</a></p>
+    </div>
+  </div>
 
-    <!-- Principal CSS do Bootstrap -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Estilos customizados para esse template -->
-    <link href="/css/jumbotron.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-      <a href="/"><img class="navbar-brand" src="/img/plus-blue.svg" alt="Logo Plus Saúde" width="36" height="36"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link <span class="sr-only">(atual)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sobre</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="#">Contato</a>
-          </li>  
-        </ul>
-        <div class="row my-2 my-lg-0">
-          <a href="/login" class="btn btn-outline-primary my-2 my-sm-0 mx-5">Entrar</a>
-        </div>
+  <div class="container">
+    <!-- Exemplo de linha de colunas -->
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Pré-agendamento</h2>
+        <p>Pré-agendamento de consultas. MAIS TEMPO PARA VOCÊ. Para o paciente: Maior disponibilidade para marcar suas
+          consultas. Para o médico: Grande redução na jornada de trabalho. Donec id elit non mi porta gravida at eget
+          metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
+          amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn btn-secondary" href="javascript:void(0);" role="button">Ver detalhes &raquo;</a></p>
       </div>
-    </nav>
-
-    <main role="main">
-
-      <!-- Principal jumbotron, para a principal mensagem de marketing ou call to action -->
-      <div class="jumbotron  text-light" style="background-color: rgb(26, 187, 156);">
-        <div class="container">
-          <h1 class="display-2 font-weight-light">PLUS - bem estar e saúde</h1>
-          <p>Plus - bem estar e saúde. É um serviço que busca realizar agendamento de consulta, agilizar o atendimento, além de buscas locais mais próximo do usuário. Este é um template para um simples marketing ou website informacional. Ele inclui um callout grande (denominado jumbotron) e três conteúdos adicionais. Use-o como um ponto de partida para algo mais peculiar.</p>
-          <p><a class="btn btn btn-outline-light btn-lg mt-3" href="/register" role="button">Fazer cadastro &raquo;</a></p>
-        </div>
+      <div class="col-md-4">
+        <h2>Encotre um médico</h2>
+        <p>Encotre um médico. MELHORES CONDIÇÕES NAS CONSULTAS. Para o paciente: Grande variedade de médicos. Para o
+          médico: Aumento do fluxo de pacientes. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus
+          ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+          malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn btn-secondary" href="javascript:void(0);" role="button">Ver detalhes &raquo;</a></p>
       </div>
+      <div class="col-md-4">
+        <h2>Locais de atendimento</h2>
+        <p>Locais de atendimento. A MELHOR OPÇÃO CUSTO X BENEFÍCIO. Para o paciente: Economize até 61% com plano de
+          saúde. Para o médico: Maior rentabilidade por consulta. Donec sed odio dui. Cras justo odio, dapibus ac
+          facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac
+          cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-secondary" href="javascript:void(0);" role="button">Ver detalhes &raquo;</a></p>
+      </div>
+    </div>
 
-      <div class="container">
-        <!-- Exemplo de linha de colunas -->
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Pré-agendamento</h2>
-            <p>Pré-agendamento de consultas. MAIS TEMPO PARA VOCÊ. Para o paciente: Maior disponibilidade para marcar suas consultas. Para o médico: Grande redução na jornada de trabalho. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="javascript:void(0);" role="button">Ver detalhes &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Encotre um médico</h2>
-            <p>Encotre um médico. MELHORES CONDIÇÕES NAS CONSULTAS. Para o paciente: Grande variedade de médicos. Para o médico: Aumento do fluxo de pacientes. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="javascript:void(0);" role="button">Ver detalhes &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Locais de atendimento</h2>
-            <p>Locais de atendimento. A MELHOR OPÇÃO CUSTO X BENEFÍCIO. Para o paciente: Economize até 61% com plano de saúde. Para o médico: Maior rentabilidade por consulta. Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="javascript:void(0);" role="button">Ver detalhes &raquo;</a></p>
-          </div>
-        </div>
+    <hr>
 
-        <hr>
+  </div> <!-- /container -->
 
-      </div> <!-- /container -->
+</main>
 
-    </main>
-
-    <footer class="container">
-      <p>&copy; Companhia 2017-2018</p>
-    </footer>
-
-    <!-- Principal JavaScript do Bootstrap
-    ================================================== -->
-    <!-- Foi colocado no final para a página carregar mais rápido -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="/js/vendor/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-  </body>
-</html>
+<!--Rodapé-->
+<%- include layouts/index-footer.ejs %>

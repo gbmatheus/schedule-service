@@ -6,8 +6,8 @@
   </head>
   <body>
     <div>
-      <a href="/">Home</a> | <a href="/user/register">Add New User</a> |
-      <a href="/user">All Users List</a>
+      <a href="/">Home</a> | <a href="/usuarios/register">Add New User</a> |
+      <a href="/usuarios">All Users List</a>
     </div>
     <h1><%= title %></h1>
     <table width="80%" border="0">
@@ -24,10 +24,10 @@
         <td><%= user.permissao %></td>
         <td>
           <div style="float:left">
-            <a href="/user/edit/<%= user.id %>">Edit</a> &nbsp;
+            <a href="/usuarios/edit/<%= user.id %>">Edit</a> &nbsp;
             <form
               method="post"
-              action="/user/delete/<%= user.id %>"
+              action="/usuarios/delete/<%= user.id %>"
               style="float:right"
             >
               <input

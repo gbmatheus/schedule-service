@@ -1,0 +1,35 @@
+<h3><%= table %></h3>
+<div class="table-responsive">
+  <table class="table table-hover table-sm">
+    <!--classe antiga -> table-striped-->
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>CRM</th>
+        <th>Especialidade</th>
+        <th>Login</th>
+        <th>Senha</th>
+        <th>Permissão</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% if (data) { %> <%data.forEach((user) => { %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.nome %></td>
+        <td><%= user.crm %>/<%= user.Uf %></td>
+        <td><%= user.especialidade %></td>
+        <td><%= user.login %></td>
+        <td><%= user.senha %></td>
+        <td>
+          <a class='btn btn-secondary btn-sm' href="/editar/<%= user.id %>">Editar</a>
+          <a class='btn btn-danger btn-sm' href="/excluir/<%= user.id %>">Excluir</a>
+        </td>
+      </tr>
+      <% }) %> <% } %>
+    </tbody>
+  </table>
+</div>

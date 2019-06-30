@@ -1,0 +1,39 @@
+<h3><%= table %></h3>
+<div class="table-responsive">
+  <table class="table table-hover table-sm">
+    <!--classe antiga -> table-striped-->
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Horário</th>
+        <th>Médico</th>
+        <th>Especialidade</th>
+        <th>Paciente</th>
+        <th>Senha</th>
+        <th>Permissão</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tbody> -->
+      <% if (data) { %> <%data.forEach((consulta) => { %>
+      <tr>
+        <td><%= consulta.dia %></td>
+        <td><%= consulta.horario %></td>
+        <!-- <td><%= consulta.dia %></td>
+        <td>Nome do Paciente</td>
+        <td>CPF</td>
+        <td>Data de Nascimento</td>
+        <td><%= consulta.login %></td>
+        <td><%= consulta.senha %></td>
+        <td><%= consulta.permissao %></td> -->
+        <td>
+          <a class='btn btn-secondary btn-sm' href="/editar/<%= consulta.id %>">Editar</a>
+          <a class='btn btn-danger btn-sm' href="/excluir/<%= consulta.id %>">Excluir</a>
+        </td>
+      </tr>
+      <% }) %> <% } %>
+      <!-- </tbody> -->
+    </tbody>
+  </table>
+</div>

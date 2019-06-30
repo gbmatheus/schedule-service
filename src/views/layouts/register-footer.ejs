@@ -1,0 +1,47 @@
+<footer class="my-2 pt-2 text-muted text-center text-small">
+    <p class="mb-3">&copy; 2017-2018</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacidade</a></li>
+      <li class="list-inline-item"><a href="#">Termos</a></li>
+      <li class="list-inline-item"><a href="#">Suporte</a></li>
+    </ul>
+  </footer>
+</div>
+
+<!-- Principal JavaScript do Bootstrap
+  ================================================== -->
+<!-- Foi colocado no final para a página carregar mais rápido -->
+<!-- <script src="/js/mask-validacao.js"></script> -->
+<script src="/js/mascara.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="/js/vendor/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/vendor/holder.min.js"></script>
+<script>
+    // Exemplo de JavaScript para desativar o envio do formulário, se tiver algum campo inválido.
+    (function () {
+      'use strict';
+
+      window.addEventListener('load', function () {
+        // Selecione todos os campos que nós queremos aplicar estilos Bootstrap de validação customizados.
+        var forms = document.getElementsByClassName('needs-validation');
+
+        // Faz um loop neles e previne envio
+        var validation = Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>
+</body>
+
+</html>
