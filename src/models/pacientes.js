@@ -1,55 +1,62 @@
 const helpers = require("../helpers/helpers.js");
 
-let paciente = function() {};
+let pacientes = function() {};
 
-paciente.prototype.show = function(req, res) {;
+//Retorna todos os pacientes
+pacientes.prototype.show = function(req, res) {
+  let sql = `SELECT p.*, e.Uf, u.login, u.senha FROM pacientes p JOIN usuarios u ON p.idUsuario = u.id JOIN estados e ON p.idUf = e.id ORDER BY p.id;`;
+
   return new Promise((resolve, reject) => {
-    helpers.execNoPromise(`SELECT * FROM pacientes;`, (error, results) => {
+    helpers.execNoPromise(sql, (error, results) => {
       if (error) return reject(error);
       else resolve(results);
     });
   })
 };
 
-paciente.prototype.get = function(req, res) {
+//Retorna um paciente
+pacientes.prototype.get = function(req, res) {
+  let sql = `SELECT p.*, e.Uf, u.login, u.senha FROM pacientes p JOIN usuarios u ON p.idUsuario = u.id JOIN estados e ON p.idUf = e.id WHERE p.id = '${parseInt(req.params.id)}' ORDER BY p.nome` ;
+  
   return new Promise((resolve, reject) => {
-    let filter = "";
-    if (req.params.id) filter = "WHERE id=" + parseInt(req.params.id);
-    helpers.execNoPromise(`SELECT * FROM pacientes '${filter}';`, (error, results) => {
+    helpers.execNoPromise(sql, (error, results) => {
       if (error) return reject(error);
       else resolve(results);
     });
   });
 };
 
-paciente.prototype.create = function(req, res) {
-  let nome = req.body.nome;   let cpf = req.body.cpf;   let sexo = req.body.sexo;   let nascimento = req.body.nascimento;   let telefone = req.telefone;   let celular = req.body.celular;   let email = req.body.email;   let endereco = req.body.endereco;   let numero = req.body.numero;   let bairro = req.body.bairro;   let cep = req.body.cep;   let cidade = req.body.cidade;   let uf = req.body.uf;
+//Cria
+pacientes.prototype.create = function(req, res) {
+  let nome = req.body.nome.toLowerCase();   let cpf = req.body.cpf.replace(/[^\d]+/g,'');   let sexo = req.body.sexo.toUpperCase();   let nascimento = req.body.nascimento;   let telefone = req.body.telefone;   let celular = req.body.celular;   let email = req.body.email.toLowerCase();   let endereco = req.body.endereco.toLowerCase();   let numero = parseInt(req.body.numero);   let bairro = req.body.bairro.toLowerCase();   let cep = req.body.cep.replace(/[^\d]+/g,'');   let cidade = req.body.cidade.toLowerCase();   let uf = req.body.uf;
 
-  let sql = `INSERT INTO pacientes (nome, cpf, sexo, nascimento, idUsuario, endBairro, endCep, endLogradouro, endNumero, conTelefone, conTelefoneCel, conEmail, endCidade, idUF) VALUES ('${nome}','${cpf}','${sexo}','${nascimento}', LAST_INSERT_ID(), '${bairro}','${cep}','${endereco}','${numero}', '${telefone}','${celular}','${email}','${cidade}','${uf}');`
+  let sql = `INSERT INTO pacientes (nome, cpf, sexo, nascimento, idUsuario, conTelefone, conCelular, conEmail, endLogradouro, endNumero, endBairro, endCep, endCidade, idUF) VALUES ('${nome}','${cpf}','${sexo}','${nascimento}', LAST_INSERT_ID(), '${telefone}','${celular}','${email}','${endereco}','${numero}', '${bairro}','${cep}','${cidade}','${uf}');`
 
   return new Promise((resolve, reject) => {
-    helpers.execNoPromise(`INSERT INTO pacientes (nome, cpf, sexo, nascimento, idUsuario) VALUES ('${nome}','${cpf}','${sexo}','${nascimento}', LAST_INSERT_ID());`, (error, results) => {
+    helpers.execNoPromise(sql, (error, results) => {
       if (error) return reject(error);
       else resolve(results);
     });
   })
 };
 
-paciente.prototype.update = function(req, res, callback) {
+//Atualiza
+pacientes.prototype.update = function(req, res, callback) {
   const id = parseInt(req.params.id);
-  let nome = req.body.nome;   let cpf = req.body.cpf;   let sexo = req.body.sexo;   let nascimento = req.body.nascimento;   let telefone = req.telefone;   let celular = req.body.celular;   let email = req.body.email;   let endereco = req.body.endereco;   let numero = req.body.numero;   let bairro = req.body.bairro;   let cep = req.body.cep;   let cidade = req.body.cidade;   let uf = req.body.uf;
+  let nome = req.body.nome.toLowerCase();   let cpf = req.body.cpf.replace(/[^\d]+/g,'');   let sexo = req.body.sexo.toUpperCase();   let nascimento = req.body.nascimento;   let telefone = req.body.telefone;   let celular = req.body.celular;   let email = req.body.email.toLowerCase();   let endereco = req.body.endereco.toLowerCase();   let numero = parseInt(req.body.numero);   let bairro = req.body.bairro.toLowerCase();   let cep = req.body.cep.replace(/[^\d]+/g,'');   let cidade = req.body.cidade.toLowerCase();   let uf = req.body.uf;
 
-  let sql = `UPDATE pacientes SET nome='${nome}', cpf='${cpf}', sexo='${sexo}', nascimento='${nascimento}', endBairro='${bairro}', endCep='${cep}', endLogradouro='${endereco}', endNumero='${numero}', conTelefone='${telefone}', conTelefoneCel='${celular}', conEmail='${email}', endCidade='${cidade}', idUF='${uf}' WHERE id='${id}';`
+  let sql = `UPDATE pacientes SET nome='${nome}', cpf='${cpf}', sexo='${sexo}', nascimento='${nascimento}', conTelefone='${telefone}', conCelular='${celular}', conEmail='${email}', endLogradouro='${endereco}', endNumero='${numero}', endBairro='${bairro}', endCep='${cep}', endCidade='${cidade}', idUF='${uf}' WHERE id='${id}';` //and cpf = ${cpf};
 
   return new Promise((resolve, reject) => {
-    helpers.execNoPromise(`UPDATE pacientes SET nome='${nome}', cpf='${cpf}', sexo='${sexo}', nascimento='${nascimento}' WHERE id='${id}';`, (error, results) => {
+    helpers.execNoPromise(sql, (error, results) => {
       if (error) return reject(error);
       else resolve(results);
     });
   })
 };
 
-paciente.prototype.remove = function(req, res) {
+//Deleta
+pacientes.prototype.remove = function(req, res) {
   return new Promise((resolve, reject) => {
     helpers.execNoPromise(`DELETE FROM pacientes WHERE id=` + parseInt(req.params.id), (error, results) => {
       if (error) return reject(error);
@@ -58,4 +65,4 @@ paciente.prototype.remove = function(req, res) {
   })
 };
 
-module.exports = new paciente();
+module.exports = new pacientes();
