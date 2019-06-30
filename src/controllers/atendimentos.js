@@ -4,19 +4,17 @@ exports.show = (req, res) => {
   console.log('Visulizar todos atendimentos');
   atendimentos.show(req, res)
   .then(result => { //success
-    // console.log('---atendimentos---\n',result);
-    res.render('admin-cons', { title: 'Lista de Consultas' , data: result});
+    res.render('admin/admin-atendimentos', { table: 'Lista de Consultas' , data: result});
     // res.json(result);
   }, function(err){ //fail
     res.status(400).send(err);
   });
 };
 
-exports.showAtendimentos = (req, res) => {
-  console.log('Visulizar atendimentos de pacientes\n',req);
-  atendimentos.showAtendimentos(req, res)
+exports.showUsuario = (req, res) => {
+  console.log('Visulizar atendimentos de pacientes');
+  atendimentos.showUsuario(req, res)
   .then(result => { //success
-    console.log('---atendimentos---\n',result);
     res.status(200).send(result);
   }, function(err){ //fail
     res.status(400).send(err);
@@ -35,10 +33,11 @@ exports.showAtendimentos = (req, res) => {
 // };
 
 exports.create = (req, res) => {
-  console.log('criar atendimentos\n', req.body);
+  console.log('Criar consulta \nParam - ', req.params.id);
+  console.log('Corpo - ', req.body);
   atendimentos.create(req, res)
   .then(result => {
-    res.status(200).send('Atentimentos agendado');    
+    res.status(200).send('Atentimentos agendado');
   }, function(err){
     res.status(400).send(err);
   });
