@@ -1,0 +1,126 @@
+<!--Cabeçalho-->
+<%- include('../layouts/register-header.ejs', {title: 'Editar Médico', page: 'Editar Médico'}); %>
+<!-- justify-content-center -->
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <h4 class="mb-4">Informações da Médico</h4>
+
+    <form class="needs-validation" action="/medicos/edit/<%= data.id %>" method="POST" novalidate>
+      <input type="hidden" class="form-control" id="idUsuario" name="idUsuario" placeholder=""
+        value="<%= data.idUsuario %>" required>
+
+      <div class="mb-3">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control text-capitalize" id="nome" name="nome" placeholder=""
+          value="<%= data.nome %>" required>
+        <div class="invalid-feedback">
+          É obrigatório inserir um nome válido.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label for="nascimento">Data de nascimento</label>
+          <input type="date" class="form-control" id="nascimento" name="nascimento"
+            placeholder=""
+            value="<%= data.nascimento.getFullYear() %>-<%= data.nascimento.getMonth() %>-<%= data.nascimento.getDate() %>"
+            required>
+          <div class="invalid-feedback">
+            Data de nascimento é obrigatório.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="crm">CRM</label>
+          <input type="text" class="form-control" id="crm" name="crm" placeholder="" value="<%= data.crm %>"
+            maxlength="10" required>
+          <div class="invalid-feedback">
+            CRM é obrigatório.
+          </div>
+        </div>
+        <div class="col-md-2 mb-3">
+          <label for="emissor">UF</label>
+          <select class="custom-select d-block w-100" id="emissor" name="emissor" required>
+            <option value="<%= data.emissor %>"><%= data.Uf %></option>
+            <!-- Arquivos com os estados-->
+            <%- include uf.ejs %>
+
+          </select>
+          <div class="invalid-feedback">
+            Por favor, insira um estado válido.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="especialidade">Especialidade</label>
+          <select class="custom-select d-block w-100" id="especialidade" name="especialidade" required>
+            <option value="<%= data.idEspecialidade %>"><%= data.especialidade %></option>
+            <%- include especialidade.ejs %>
+
+          </select>
+          <div class="invalid-feedback">
+            Especialidade é obrigatória.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="usuario">Usuário</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">@</span>
+            </div>
+            <input type="text" class="form-control text-lowercase" id="usuario" name="usuario" placeholder=""
+              value="<%= data.login %>" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Seu usuário é obrigatório.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="senha">Senha</label>
+          <input type="text" class="form-control" id="senha" name="senha" placeholder="" value="<%= data.senha %>"
+            minlength="8" required>
+          <div class="invalid-feedback">
+            Senha é obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="" value="<%= data.conEmail %>"
+          required>
+        <div class="invalid-feedback">
+          Por favor, insira um endereço de e-mail válido, para atualizações de entrega.
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="telefone">Telefone<span class="text-muted">(Opcional)</span></label>
+          <input type="text" class="form-control" id="telefone" name="telefone" placeholder=""
+            value="<%= data.conTelefone %>" required>
+          <div class="invalid-feedback">
+            Por favor, insira um número de telefone válido.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="celular">Celular</label>
+          <input type="text" class="form-control" id="celular" name="celular" placeholder=""
+            value="<%= data.conCelular %>" required>
+          <div class="invalid-feedback">
+            Por favor, insira um número de celular válido.
+          </div>
+        </div>
+      </div>
+
+      <hr class="mb-4">
+      <div class="row">
+        <button class="btn btn-primary btn-md mx-auto" type="submit">Salvar</button>
+        <button class="btn btn-danger btn-md mx-auto" type="reset">Cancelar</button>
+        <a class="btn btn-secondary btn-md mx-auto" href="/medicos/<%= data.id %>">Voltar</a>
+      </div>
+    </form>
+  </div>
+</div>
+<!--Rodapé-->
+<%- include ../layouts/register-footer.ejs %>

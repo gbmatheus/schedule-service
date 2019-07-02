@@ -9,10 +9,10 @@
         <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
         <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
       </div>
-      <button type="button" class="btn btn-sm btn-primary mx-1">
+      <a class="btn btn-sm btn-primary mx-1" href="/registerM">
         <span data-feather="plus-square"></span>
-        Adicionar Médico
-      </button>
+        Adicionar Paciente
+      </a>
       <button type="button" class="btn btn-sm btn-secondary mx-1">
         <span data-feather="search"></span>
         Buscar Médico
@@ -42,12 +42,14 @@
           <td><%= medico.id %></td>
           <td class="text-capitalize"><%= medico.nome %></td>
           <td><%= medico.crm %>/<%= medico.Uf %></td>
-          <td><%= medico.especialidade %></td>
+          <td class="text-capitalize"><%= medico.especialidade %></td>
           <td><%= medico.login %></td>
           <td><%= medico.senha %></td>
-          <td>
-            <a class='btn btn-secondary btn-sm' href="/editar/<%= medico.id %>">Editar</a>
-            <a class='btn btn-danger btn-sm' href="/excluir/<%= medico.id %>">Excluir</a>
+          <td class="row">
+            <a class="btn btn-secondary btn-sm mr-1" href="/medicos/edit/<%= medico.id %>">Editar</a>
+            <form action="/medicos/del/<%= medico.id %>" method="POST">
+              <button class="btn btn-danger btn-sm mr-1" type="submit">Excluir</button>
+            </form>
           </td>
         </tr>
         <% }) %> <% } %>
