@@ -4,8 +4,8 @@ exports.show = (req, res) => {
   console.log('Visulizar todos atendimentos');
   atendimentos.show(req, res)
   .then(result => { //success
-    res.render('admin/admin-atendimentos', { table: 'Lista de Consultas' , data: result});
-    // res.json(result);
+    // res.render('admin/admin-atendimentos', { table: 'Lista de Consultas' , data: result});
+    res.json(result);
   }, function(err){ //fail
     res.status(400).send(err);
   });
@@ -15,7 +15,13 @@ exports.showUsuario = (req, res) => {
   console.log('Visulizar atendimentos de pacientes');
   atendimentos.showUsuario(req, res)
   .then(result => { //success
-    res.status(200).send(result);
+    if(req.path == '/'+req.params.type+'/'+req.params.id){
+      res.status(200).send(result);
+    }
+    else{
+      res.render('admin/admin-atendimentos', { table: 'Lista de Consultas' , data: result});
+      // res.status(200).send(result);
+    }
   }, function(err){ //fail
     res.status(400).send(err);
   });

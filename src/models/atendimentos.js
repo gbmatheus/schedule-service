@@ -55,14 +55,12 @@ atendimentos.prototype.get = function(req, res) {
 
 atendimentos.prototype.create = function(req, res) {
   console.log('criando atendimentos pacientes');
-  let data = req.body.data;
-  let horario = req.body.horario;
-  let idMedico = parseInt(req.body.idMed);
-  let idPaciente = parseInt(req.body.idPac);//pegar pelo parametros
-  // helpers.execNoPromise(`INSERT INTO atendimentos (data, horario, idMedico, idPaciente) VALUES ('${data}','${horario}','${idMedico}','${idPaciente}','${especialidade}', LAST_INSERT_ID());`, (error, results) => {
-     
+  let data = req.body.data;   let horario = req.body.horario;   let idMedico = parseInt(req.body.idMed);   let idPaciente = parseInt(req.body.idPac);//pegar pelo parametros
+  
+  let sql = `INSERT INTO atendimentos (dia, horario, idMedico, idPaciente) VALUES ('${data}','${horario}','${idMedico}','${idPaciente}');`
+
   return new Promise((resolve, reject) => {
-    helpers.execNoPromise(`INSERT INTO atendimentos (dia, horario, idMedico, idPaciente) VALUES ('${data}','${horario}','${idMedico}','${idPaciente}');`, (error, results) => {
+    helpers.execNoPromise(sql, (error, results) => {
       if (error) return reject(error);
       else resolve(results);
     });

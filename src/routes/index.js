@@ -14,9 +14,12 @@ router.get("/", (req, res) =>
 
 //Cadastro geral
 router.get("/register", (req, res) =>
-  // res.render("cadastroBoot", { message: null })
   res.render("paciente", { message: null })
-  // res.render("medico", { message: null })
+);
+
+//Cadastro geral
+router.get("/registerM", (req, res) =>
+  res.render("medico", { message: null })
 );
 
 //Login

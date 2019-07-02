@@ -62,6 +62,8 @@ usuario.prototype.create = function(req, res) {
   let senhaHash = req.body.senha;
   // let senhaHash = helpers.generateHash(req.body.senha);
   let tipo = 'p'.toUpperCase();//req.body.typeUser;
+  if(typeUser) tipo = req.body.typeUser.toUpperCase();
+  
   let sql = `INSERT INTO usuarios (login, senha, permissao) VALUES ('${login}','${senhaHash}','${tipo}');` 
   
   return new Promise((resolve, reject) => {

@@ -35,20 +35,19 @@ exports.create = (req, res) => {
 
   usuario.create(req, res).then(
     resultUsuario => {
-      if (req.body.typeUser == "m") {
+      if (req.body.typeUser == 'M') {
         medico.create(req, res).then(resultMedico => {
           // res.json(resultMedico);
           console.log("Médico adicionado");
         });
       } else {
-        //if(req.body.typeUser == 'p') 
-
+        //if(req.body.typeUser == 'p')
         paciente.create(req, res).then(resultPaciente => {
           console.log("Paciente adicionado");
           // res.json(resultPaciente);
         });
       }
-      res.redirect("/login");
+      res.redirect('/login');
     },
     function(err) {
       res.status(400).send('"falhou usuario"');

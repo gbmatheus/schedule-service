@@ -3,7 +3,8 @@ const router = express.Router();
 
 const atendimentoController = require('../controllers/atendimentos');
 
-router.get('', atendimentoController.show); //mostra todas as consultas
+// router.get('', atendimentoController.show); //mostra todas as consultas
+router.get('', atendimentoController.showUsuario); //mostra todas as consultas
 // router.get('/:id?', atendimentoController.get);
 router.post('', atendimentoController.create); //agendar consulta
 // router.patch('/edit/:id', atendimentoController.update);
