@@ -44,7 +44,7 @@
         <div class="col-md-4 mb-3">
           <label for="cpf">CPF</label>
           <input type="text" class="form-control" id="cpf" name="cpf" placeholder="" value="<%= data.cpf %>"
-            onkeyup="mascara('###.###.###-##',this,event,true)" maxlength="14" required>
+            onkeyup="mascara('###.###.###-##',this,event,true)" minlength="14" maxlength="14" required>
           <div class="invalid-feedback">
             CPF é obrigatório.
           </div>
@@ -161,7 +161,7 @@
         <div class="col-md-4 mb-3">
           <label for="cep">CEP</label>
           <input type="text" class="form-control" id="cep" name="cep" placeholder="" value="<%= data.endCep %>"
-            onkeyup="mascara('##.###-###',this,event,true)" maxlength="10" required>
+            onkeyup="mascara('##.###-###',this,event,true)" minlength="10" maxlength="10" required>
           <div class="invalid-feedback">
             É obrigatório inserir um CEP.
           </div>

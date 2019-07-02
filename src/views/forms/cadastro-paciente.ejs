@@ -7,7 +7,7 @@
 
       <div class="mb-3">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" placeholder="" value="" required>
+        <input type="text" class="form-control text-capitalize" id="nome" name="nome" placeholder="" value="" required>
         <div class="invalid-feedback">
           É obrigatório inserir um nome válido.
         </div>
@@ -18,9 +18,9 @@
           <label for="sexo">Sexo</label>
           <select class="custom-select d-block w-100" id="sexo" name="sexo" required>
             <option value="">Escolha...</option>
-            <option>Masculino</option>
-            <option>Feminino</option>
-            <option>Outros</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+            <option value="O">Outros</option>
           </select>
           <div class="invalid-feedback">
             Sexo é obrigatória.
@@ -36,7 +36,7 @@
         <div class="col-md-4 mb-3">
           <label for="cpf">CPF</label>
           <!-- <input type="text" class="form-control" id="cpf" name="cpf" placeholder="" required> -->
-          <input type="text" class="form-control" id="cpf" name="cpf" placeholder="" onkeyup="mascara('###.###.###-##',this,event,true)" maxlength="14" required>
+          <input type="text" class="form-control" id="cpf" name="cpf" placeholder="" onkeyup="mascara('###.###.###-##',this,event,true)" minlength="14" maxlength="14" required>
           <div class="invalid-feedback">
             CPF é obrigatório.
           </div>
@@ -93,7 +93,7 @@
       <div class="row">
         <div class="col-md-10 mb-3">
           <label for="endereco">Endereço</label>
-          <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Rua dos bobos, nº 0"
+          <input type="text" class="form-control text-capitalize" id="endereco" name="endereco" placeholder="Rua dos bobos, nº 0"
             required>
           <div class="invalid-feedback">
             Por favor, insira seu endereço de entrega.
@@ -110,12 +110,12 @@
 
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="complemento">Complemento<span class="text-muted">(Opcional)</span></label>
+          <label for="complemento">Complemento<span class="text-muted ">(Opcional)</span></label>
           <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Apartamento ou casa">
         </div>
         <div class="col-md-6 mb-3">
           <label for="bairro">Bairro</label>
-          <input type="text" class="form-control" id="bairro" name="bairro" placeholder="" required>
+          <input type="text" class="form-control text-capitalize" id="bairro" name="bairro" placeholder="" required>
           <div class="invalid-feedback">
             É obrigatório inserir um bairro.
           </div>
@@ -125,7 +125,7 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="cidade">Cidade</label>
-          <input type="text" class="form-control" id="cidade" name="cidade" placeholder="" required>
+          <input type="text" class="form-control text-capitalize" id="cidade" name="cidade" placeholder="" required>
           <div class="invalid-feedback">
             É obrigatório inserir um cidade.
           </div>
@@ -144,7 +144,7 @@
         </div>
         <div class="col-md-4 mb-3">
           <label for="cep">CEP</label>
-          <input type="text" class="form-control" id="cep" name="cep" placeholder="" onkeyup="mascara('##.###-###',this,event,true)" maxlength="10" required>
+          <input type="text" class="form-control" id="cep" name="cep" placeholder="" onkeyup="mascara('##.###-###',this,event,true)" minlength="10" maxlength="10" required>
           <div class="invalid-feedback">
             É obrigatório inserir um CEP.
           </div>

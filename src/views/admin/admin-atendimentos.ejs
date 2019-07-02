@@ -29,10 +29,10 @@
           <th>Data</th>
           <th>Horário</th>
           <th>Médico</th>
+          <th>CRM</th>
           <th>Especialidade</th>
           <th>Paciente</th>
-          <th>Senha</th>
-          <th>Permissão</th>
+          <th>CPF</th>
           <th>Opções</th>
         </tr>
       </thead>
@@ -40,15 +40,14 @@
         <!-- <tbody> -->
         <% if (data) { %> <%data.forEach((consulta) => { %>
         <tr>
-          <td><%= consulta.dia %></td>
+          <td><%= consulta.dia.getDate() %>/<%= consulta.dia.getMonth() %>/<%= consulta.dia.getFullYear() %></td>
           <td><%= consulta.horario %></td>
-          <!-- <td><%= consulta.dia %></td>
-        <td>Nome do Paciente</td>
-        <td>CPF</td>
-        <td>Data de Nascimento</td>
-        <td><%= consulta.login %></td>
-        <td><%= consulta.senha %></td>
-        <td><%= consulta.permissao %></td> -->
+          <td class="text-capitalize"><%= consulta.medico %></td>
+          <td><%= consulta.crm %>/<%= consulta.emissor %></td>
+          <td class="text-capitalize"><%= consulta.especialidade %></td>
+          <td class="text-capitalize"><%= consulta.paciente %></td>
+          <td><%= consulta.cpf %></td>
+        <!-- paciente":"elza marlene da conceição","cpf":"04303543047","sexo":"F","medico":"bernardo diego campos","crm":"89059","emissor":"17","especialidade":"Anestesiologia","dia":"2019-07-10T03:00:00.000Z","horario":"10:30:00"},{"paciente":"raquel márcia almada","cpf":"86399726484","sexo":"F","medico":"césar marcelo porto","crm":"91470","emissor":"17","especialidade":"Cardiologia","dia":"2019-07-10T03:00:00.000Z","horario":"12:00:00"} -->
           <td>
             <a class='btn btn-secondary btn-sm' href="/editar/<%= consulta.id %>">Editar</a>
             <a class='btn btn-danger btn-sm' href="/excluir/<%= consulta.id %>">Excluir</a>
