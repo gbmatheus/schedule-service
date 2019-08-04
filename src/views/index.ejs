@@ -5,6 +5,8 @@
 <main role="main">
 
   <!-- Principal jumbotron, para a principal mensagem de marketing ou call to action -->
+  <!-- Ativar barra de menu -->
+  <!-- <?=isset($menu->inicio) ? "active" : "";?> -->
   <div class="jumbotron  text-light" style="background-color: rgb(26, 187, 156);">
     <div class="container">
       <h1 class="display-2 font-weight-light">PLUS - bem estar e saúde</h1>
@@ -12,7 +14,17 @@
         de buscas locais mais próximo do usuário. Este é um template para um simples marketing ou website informacional.
         Ele inclui um callout grande (denominado jumbotron) e três conteúdos adicionais. Use-o como um ponto de partida
         para algo mais peculiar.</p>
-      <p><a class="btn btn btn-outline-light btn-lg mt-3" href="/register" role="button">Fazer cadastro &raquo;</a></p>
+      <h4>Faça seu cadastro &raquo;</h3>
+      <span>
+        <a class="btn btn btn-outline-light btn-md mt-3 mr-3" href="/registerPatient" role="button">
+          <span class="fas fa-user fa-fw"></span>
+           Paciente
+        </a>
+        <a class="btn btn btn-outline-light btn-md mt-3 mr-3" href="/registerMedical" role="button">
+          <span class="fas fa-user-md fa-fw"></span>
+           Médico
+          </a>
+      </span>
     </div>
   </div>
 

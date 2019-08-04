@@ -1,39 +1,88 @@
-<h3><%= table %></h3>
-<div class="table-responsive">
-  <table class="table table-hover table-sm">
-    <!--classe antiga -> table-striped-->
-    <thead>
-      <tr>
-        <th>Data</th>
-        <th>Horário</th>
-        <th>Médico</th>
-        <th>Especialidade</th>
-        <th>Paciente</th>
-        <th>Senha</th>
-        <th>Permissão</th>
-        <th>Opções</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- <tbody> -->
-      <% if (data) { %> <%data.forEach((consulta) => { %>
-      <tr>
-        <td><%= consulta.dia %></td>
-        <td><%= consulta.horario %></td>
-        <!-- <td><%= consulta.dia %></td>
-        <td>Nome do Paciente</td>
-        <td>CPF</td>
-        <td>Data de Nascimento</td>
-        <td><%= consulta.login %></td>
-        <td><%= consulta.senha %></td>
-        <td><%= consulta.permissao %></td> -->
-        <td>
-          <a class='btn btn-secondary btn-sm' href="/editar/<%= consulta.id %>">Editar</a>
-          <a class='btn btn-danger btn-sm' href="/excluir/<%= consulta.id %>">Excluir</a>
-        </td>
-      </tr>
-      <% }) %> <% } %>
-      <!-- </tbody> -->
-    </tbody>
-  </table>
+<!--Cabecalho-->
+<%- include layouts/header.ejs %>
+
+<!-- Começo body - Corpo -->
+
+<!-- Barra de navegação de cima - Usuario -->
+<%- include layouts/nav-bar-top.ejs %>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Barra de navegação lateral -->
+    <%- include layouts/nav-bar-left.ejs %>
+
+    <!-- Começo do main - Conteúdo Principal -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Consultas</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <button type="button" class="btn btn-sm btn-primary mx-1">
+            <span data-feather="plus-square"></span>
+            Agendar
+          </button>
+          <button type="button" class="btn btn-sm btn-secondary mx-1">
+            <span data-feather="search"></span>
+            Buscar
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <!--classe antiga -> table-striped-->
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Horário</th>
+              <th>Médico</th>
+              <th>Usuário</th>
+              <th>Paciente</th>
+              <th>Usuário</th>
+              <th>Status</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tbody> -->
+            <% if (data) { %> <%data.forEach((consulta) => { %>
+            <tr>
+              <td><%= consulta.dia %></td>
+              <td><%= consulta.hora %></td>
+              <td><%= consulta.medico %></td>
+              <td><%= consulta.usuarioMed %></td>
+              <td><%= consulta.paciente %></td>
+              <td><%= consulta.usuarioPac %></td>
+              <td><%= consulta.status %></td>
+              <td class="row">
+                <!-- <a class="btn btn-info btn-sm mr-1 text-white" title="Informações">
+            <span class="fas fa-info fa-fw"></span>
+          </a> -->
+                <a class="btn btn-secondary btn-sm mr-1 text-white" title="Editar">
+                  <span class="fas fa-pen fa-fw"></span>
+                </a>
+                <form action="" method="POST">
+                  <button class="btn btn-danger btn-sm mr-1 text-white" title="Excluir" type="submit">
+                    <span class="fas fa-trash-alt fa-fw"></span>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }) %> <% } %><% else { %>
+            <h4 class="mb-3">Não há nehuma consulta</h4>
+            <% } %>
+            <!-- </tbody> -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <!-- Fim do main -->
+
+  </div>
 </div>
+
+<!-- Fim body -->
+
+<!-- Rodapé -->
+<%- include layouts/footer.ejs %>

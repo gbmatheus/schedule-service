@@ -1,71 +1,136 @@
-const paciente = require('../models/pacientes.js');
-const usuario = require('../models/usuario.js');
+const paciente = require("../models/pacientes.js");
+const usuario = require("../models/usuario.js");
 
+//Mostrar todos pacientes
 exports.show = (req, res) => {
-  paciente.show(req, res)
-  .then(result => { //success
-    res.render('admin/admin-pacientes', { table: 'Lista de Pacientes' , data: result});
-  }, function(err){ //fail
-    res.status(400).send(err);
-  });
-};
+  paciente.show(req, res).then(
+    resultShow => {
+      let pacientes = [];
 
-exports.get = (req, res) => {
-  paciente.get(req, res)
-  .then(result => {//success
-    //verifica a rota
-    if(req.path == '/edit/'+req.params.id){
-      res.status(200).render('forms/paciente-editar', {data: result[0]});
-    // }else if(req.path = '/edit/:id'){
-    //   res.render('admin/admin-pacientes', { table: 'Lista de Pacientes' , data: result});
-    }else{//fail
-      res.status(200).send(result);      
+      resultShow.forEach(element => {
+        let user = {
+          idPaciente: element.idPaciente,
+          nome: element.nome,
+          cpf: element.cpf,
+          sexo: element.sexo,
+          nascimento: {
+            dia: element.nascimento.getDate(),
+            mes: 1 + element.nascimento.getMonth(),
+            ano: element.nascimento.getFullYear()
+          },
+          idUsuario: element.idUsuario,
+          login: element.login,
+          email: element.email,
+          password: element.password,
+          typeUser: element.typeUser,
+          active: element.active
+        };
+        
+        user.sexo =
+          element.sexo === "M"
+            ? "Masculino"
+            : element.sexo === "F"
+            ? "Feminino"
+            : "Outros";
+
+        user.active = (user.active === 1 ? 'Sim ' : 'Não ');
+        
+        pacientes.push(user);
+      });
+      // res.status(200).send(resultShow);
+      res.status(200).render("admin/listagem-pacientes", { data: pacientes });
+    },
+    err => {
+      res.status(400).send(err);
     }
-  }, function(err){ //fail
-    res.status(400).send(err);
-  });
+  );
 };
 
-//Criar paciente, por hora não está sendo utilizado
-//A criação fica por conta do usuario
+//Mostrar um paciente
+exports.get = (req, res) => {
+  paciente.get(req, res).then(
+    result => {
+      res.status(200).send(result);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
+};
+
+//Criar um paciente
 exports.create = (req, res) => {
-  paciente.create(req, res)
-  .then(result => {//sucess
-    res.status(200).send(result);
-  }, function(err){//fail
-    res.status(400).send(err);
+  let user = {
+    nome: req.body.nome.toLowerCase(),
+    cpf: req.body.cpf,
+    sexo: req.body.sexo,
+    nascimento: req.body.nascimento,
+    email: req.body.email.toLowerCase(),
+    login: req.body.login.toLowerCase(),
+    password: req.body.password.toLowerCase(),
+    typeUser: "P",
+    idUser: undefined
+  };
+
+  //Verifica se o paciente já existe
+  paciente.getUser(user, res).then(resultaGet => {
+    if (resultaGet.length > 0) {
+      if (resultaGet[0].cpf === user.cpf)
+        //verificação do cpf
+        return res.status(400).send({ error: "Paciente com cpf já existe " });
+      // return res.status(400).render('paciente', { message: 'CPF já em uso ', data: user });
+
+      if (resultaGet[0].login === user.login)
+        //verificação do login
+        return res.status(400).send({ error: "Nome do usuário já existe " });
+      // return res.status(400).render('paciente', { message: 'Usuário já em uso ', data: user });
+
+      if (resultaGet[0].email === user.email)
+        //verificação do email
+        return res.status(400).send({ error: "Email já está em uso " });
+      // return res.status(400).render('paciente', { message: 'Email já em uso ', data: user });
+    }
+    //cria usuario
+    usuario.create(user, res).then(
+      resultUsuario => {
+        user.idUser = resultUsuario.insertId;
+
+        //cria paciente
+        paciente.create(user, resultUsuario).then(resultPaciente => {
+          // res.status(200).send(resultPaciente);
+          res.status(200).redirect("/login");
+        });
+      },
+      err => {
+        res.status(400).send({ error: "Falha no cadastro ", err: err });
+      }
+    );
   });
 };
 
-//update pelo paciente
+//Atualizar paciente
 exports.update = (req, res) => {
-  //variavel com os atributos de usuario
-  let user = { id: req.body.idUsuario, login: req.body.usuario, senha: req.body.senha }
-  
-  paciente.update(req, res)
-  .then(result => { //success
-    usuario.update(user, result).then(resultUser => {
-      res.status(200).send(resultUser);
-    })
-    // res.status(200).send(result);
-  }, (err) => { //fail
-    res.status(400).send(err);
-  });
+  paciente.update(req, res).then(
+    result => {
+      res.status(200).send(result);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
 };
 
+//Remover paciente
 exports.remove = (req, res) => {
-  //gambiarra para excluir usuario pelo paciente
-  let idUser = 0;
-  //método get para pegar o id do usuario
-  paciente.get(req, res).then(result => {idUser = parseInt(result[0].idUsuario);}, 
-    (err) => {res.status(400).send(err);});
-
-  paciente.remove(req, res)
-  .then(result => {
-    usuario.remove(idUser, result).then(resultUser => {
-      res.status(200).send(resultUser);
-    });
-  }, function(err){
-    res.status(400).send(err);
-  });
+  paciente.remove(req, res).then(
+    result => {
+      res.status(200).send(result);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
 };
+
+//Inativar paciente
+exports.activate = (req, res) => {};

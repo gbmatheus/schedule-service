@@ -1,10 +1,9 @@
-const helpers = require("../helpers/helpers");
+const helpers = require('../helpers/helpers');
 
 let atendimentos = function() {};
 
 atendimentos.prototype.show = function(req, res) {
-  console.log('ver atendimentos');
-  sql = `SELECT p.nome as pac, p.cpf, m.nome as med, m.crm, m.emissor, c.dia, c.horario FROM medicos m JOIN atendimentos c ON m.id = c.idMedico JOIN pacientes p ON p.id = c.idPaciente ORDER BY med, pac, c.dia, c.horario;`;
+  sql = `SELECT p.nome as paciente, p.cpf, m.nome as medico, m.crm, m.emissor, c.dia, c.hora FROM medicos m JOIN consultas c ON m.idUsuario = c.idMedico JOIN pacientes p ON p.idPaciente = c.idPaciente ORDER BY medico, paciente, c.dia, c.hora;`;
     
   return new Promise((resolve, reject) => {
     helpers.execNoPromise(sql, (error, results) => {
@@ -15,23 +14,23 @@ atendimentos.prototype.show = function(req, res) {
 };
 
 atendimentos.prototype.showUsuario = function(req, res) {
-  console.log('ver atendimentos \n tipo', req.params.type,' \n id - ', req.params.id);//incluir condição para permissão
-  let filter = "";
-  let column = "";
+  console.log('ver atendimentos \n tipo', req.params.typeUser,' \n id - ', req.params.id);//incluir condição para permissão
+  let filter = '';
+  let column = '';
   
-  if(req.params.type == 'm'){
-    column ="p.nome as pacientes, p.cpf, p.sexo,";//, p.nascimento,";
+  if(req.params.typeUser === 'm'){
+    column ='p.*, p.nome as paciente, p.idUsuario as idUsuarioPaciente, ';//, p.nascimento,';
     if(req.params.id)
-    filter = "WHERE m.id = "+parseInt(req.params.id); 
+    filter = 'WHERE m.idMedico = '+parseInt(req.params.id); 
   
-  }else if(req.params.type == 'p') {
-    column = "m.nome as medicos, m.crm, m.emissor, e.especialidade,";
+  }else if(req.params.typeUser === 'p') {
+    column = 'm.*, m.nome as medico, m.idUsuario as idUsuarioMedico, e.*, uf.*, ';
     if(req.params.id)
-      filter = "WHERE p.id ="+parseInt(req.params.id); 
+      filter = 'WHERE p.id ='+parseInt(req.params.id); 
   
-  }else column = "p.nome as paciente, p.cpf, p.sexo, m.nome as medico, m.crm, m.emissor, e.especialidade, ";
+  }else column = 'p.*, p.nome as paciente, p.idUsuario as idUsuarioPaciente, m.*, m.nome as medico, m.idUsuario as idUsuarioMedico, e.*, uf.*, ';
 
-  sqlShowPac = `SELECT ${column} c.dia, c.horario FROM atendimentos c JOIN medicos m ON m.id = c.idMedico JOIN especialidades e ON m.idEspecialidade = e.id JOIN pacientes p ON p.id = c.idPaciente ${filter} ORDER BY c.dia, c.horario;`
+  sqlShowPac = `SELECT ${column} c.* FROM consultas c JOIN medicos m ON m.idMedico = c.idMedico JOIN especialidades e ON m.idEspecialidade = e.idEspecialidade JOIN uf ON m.idUf = uf.idUf JOIN pacientes p ON p.idPaciente = c.idPaciente ${filter} ORDER BY c.dia, c.hora;`
 
   return new Promise((resolve, reject) => {
     helpers.execNoPromise(sqlShowPac, (error, results) => {
@@ -42,11 +41,13 @@ atendimentos.prototype.showUsuario = function(req, res) {
 };
 
 atendimentos.prototype.get = function(req, res) {
-  console.log('ver atendimentos unico/varios');
+  const id = parseInt(req.params.id);
+  
+  // let sql = `SELECT * FROM consultas WHERE idConsulta=${id}`;
+  let sql = `SELECT p.*, p.nome as paciente, p.idUsuario as idUsuarioPaciente, m.*, m.nome as medico, m.idUsuario as idUsuarioMedico, e.*, uf.*, c.* FROM consultas c JOIN medicos m ON m.idMedico = c.idMedico JOIN especialidades e ON m.idEspecialidade = e.idEspecialidade JOIN uf ON m.idUf = uf.idUf JOIN pacientes p ON p.idPaciente = c.idPaciente WHERE idConsulta=${id} ORDER BY c.dia, c.hora;`
+    
   return new Promise((resolve, reject) => {
-    let filter = "";
-    if (req.params.id) filter = "WHERE id=" + parseInt(req.params.id);
-    helpers.execNoPromise(`SELECT * FROM atendimentos `+ filter, (error, results) => {
+    helpers.execNoPromise(sql, (error, results) => {
       if (error) return reject(error);
       else resolve(results);
     });
@@ -55,9 +56,9 @@ atendimentos.prototype.get = function(req, res) {
 
 atendimentos.prototype.create = function(req, res) {
   console.log('criando atendimentos pacientes');
-  let data = req.body.data;   let horario = req.body.horario;   let idMedico = parseInt(req.body.idMed);   let idPaciente = parseInt(req.body.idPac);//pegar pelo parametros
+  // let dia = req.dia;   let hora = req.hora;   let idMedico = parseInt(req.idMedico);   let idPaciente = parseInt(req.idPaciente);//pegar pelo parametros
   
-  let sql = `INSERT INTO atendimentos (dia, horario, idMedico, idPaciente) VALUES ('${data}','${horario}','${idMedico}','${idPaciente}');`
+  let sql = `INSERT INTO consultas (dia, hora, idMedico, idPaciente) VALUES ('${req.dia}', '${req.hora}', ${req.idMedico}, ${req.idPaciente});`
 
   return new Promise((resolve, reject) => {
     helpers.execNoPromise(sql, (error, results) => {
@@ -71,11 +72,11 @@ atendimentos.prototype.create = function(req, res) {
 atendimentos.prototype.update = function(req, res) {
   const id = parseInt(req.params.id);
   let data = req.body.data;
-  let horario = req.body.horario;
+  let hora = req.body.hora;
   let idMedico = parseInt(req.body.idMed);
   let idPaciente = parseInt(req.body.idPac);//pegar pelo parametros
   
-  let sql = `UPDATE atendimentos SET dia='${data}', horario='${horario}', idMedico='${idMedico}', idPaciente='${idPaciente}' WHERE id='${id}';`;
+  let sql = `UPDATE atendimentos SET dia='${data}', hora='${hora}', idMedico='${idMedico}', idPaciente='${idPaciente}' WHERE id='${id}';`;
   
   return new Promise((resolve, reject) => {
     helpers.execNoPromise(sql, (error, results) => {
@@ -95,6 +96,18 @@ atendimentos.prototype.remove = function(req, res) {
         else resolve(results);
       }
     );
+  });
+};
+
+
+atendimentos.prototype.cancele = function(req, res) {
+  let sql = `UPDATE consultas SET status = 'cancelada' WHERE (idConsulta = ${req.params.id})`;
+  
+  return new Promise((resolve, reject) => {
+    helpers.execNoPromise(sql, (error, results) => {
+        if (error) return reject(error);
+        else resolve(results);
+    });
   });
 };
 

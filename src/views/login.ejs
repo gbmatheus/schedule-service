@@ -1,19 +1,57 @@
 <!doctype html>
-<html>
-  <body>
-    <h1>Login</h1>
-    <form action="/usuarios/login" method="POST">
-      <input name="username" type="text" placeholder="Digite seu usuário" /><br />
-      <input name="password" type="password" placeholder="Digite sua senha" /><br />
-      <input type="submit" value="Entrar" />
-    </form>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="/img/favicon.ico">
+
+  <title>Login</title>
+
+  <!-- Principal CSS do Bootstrap -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Estilos customizados para esse template -->
+  <link href="/css/signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+  <form class="form-signin" action="/user/login" method="POST">
+    <a href="/"><img class="mb-4" src="/img/plus-blue.svg" alt="Logo Plus Saúde" width="72" height="72" title="Plus-Inicio"></a>
+    <h1 class="h3 mb-3 font-weight-normal">Faça login</h1>
+    <!-- Mensagem de erro -->
     <% if(message) { %>
-      <p>
-        <label style="color:Red"><%= message %></label>
-      </p>
-    <%}%>
-    <p>
-      <a href="/forgot">Esqueceu sua senha?</a>   |   <a href="/register">Não possui cadastro?</a>
-    </p>
-  </body>
+    <div class="alert alert-danger p-1 " role="alert">
+    <!-- <div class="alert alert-danger p-1 " role="alert"> -->
+      <small class="text-muted mx-auto">
+        <%= message %>
+      </small>
+    </div>
+    <% } %>
+    <label for="username" class="sr-only">Usuário</label>
+    <input type="text" id="login" name="login" class="form-control mb-3" placeholder="Seu email ou usuário" required
+      autofocus>
+    <label for="password" class="sr-only">Senha</label>
+    <input type="password" id="password" name="password" class="form-control mb-3" placeholder="Senha" required>
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Lembrar de mim
+      </label>
+    </div>
+    <!-- <input class="btn btn-lg btn-primary btn-block" type="submit" value="Entrar"> -->
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    <div class="text-center">
+      <a class="small" href="/forgot">Esqueceu a senha?</a>
+    </div>
+    <div class="text-center">
+      <a class="small" href="/registerPatient">Não possui conta?</a>
+      <a class="small" href="/registerMedical">Médico?</a>
+    </div>
+    <p class=" mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+
+  </form>
+</body>
+
 </html>
