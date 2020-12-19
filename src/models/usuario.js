@@ -1,7 +1,5 @@
 const bcrypt = require("bcryptjs");
 
-const helpers = require("../helpers/helpers.js");
-
 let usuario = function() {};
 
 //Cria usuario
