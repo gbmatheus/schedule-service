@@ -1,5 +1,3 @@
-const helpers = require("../helpers/helpers.js");
-
 const usuario = require("../models/usuario");
 const paciente = require("../models/pacientes");
 const medico = require("../models/medicos");
