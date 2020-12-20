@@ -1,5 +1,4 @@
-// const User = require('../models/User');
-const Patient = require('../models/Patient');
+const PatientCreate = require('../services/Patient/CreatePatientService');
 const UserCreate = require('../services/User/CreateUserService');
 
 module.exports = {
@@ -23,8 +22,8 @@ module.exports = {
     if(!user){
       return res.json({ error: 'User not register' });
     }
-  
-    const patient = await Patient.create({
+
+    const patient = await PatientCreate({
       name, cpf, birth, genre, user_id: user.id
     })
 
