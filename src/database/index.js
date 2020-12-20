@@ -2,11 +2,14 @@ const {Sequelize} = require('sequelize');
 
 const dbConfig = require('../config/database');
 const UserModel = require('../models/User');
+const DoctorModel = require('../models/Doctor');
 
 const sequelize = new Sequelize(dbConfig);
 
 UserModel.init(sequelize);
 
+DoctorModel.init(sequelize);
+DoctorModel.associate(sequelize.models);
 // Testing the connection
 // try {
 //   await sequelize.authenticate();
