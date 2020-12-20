@@ -1,7 +1,7 @@
 const User = require('../../models/User');
 
   
-async function UserCreate ({username, email, password}) {
+async function UserCreate ({username, email, password}, {transaction}) {
   
   const userByEmailExist = await User.findOne({where: { email }});
 
@@ -11,7 +11,7 @@ async function UserCreate ({username, email, password}) {
 
   const user = await User.create({
     username, email, password
-  });
+  }, {transaction});
 
   return user;
 }
