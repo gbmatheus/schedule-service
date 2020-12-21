@@ -1,7 +1,7 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
 class User extends Model {
-  static init (connection) {
+  static init (sequelize) {
     super.init ({
       username: {
         type: DataTypes.STRING,
@@ -15,7 +15,7 @@ class User extends Model {
         type: DataTypes.STRING,
         allowNull:  false,
       },
-    }, {sequelize:connection});
+    }, {sequelize});
   }
 }
 
