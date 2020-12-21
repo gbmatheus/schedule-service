@@ -4,7 +4,7 @@ module.exports =  {
   username: 'postgres',
   password: 'senha123',
   database: 'schedule_service',
-  port: 5432,
+  port: 15432,
   define: {
     timestamps: true,
     underscored: true,
