@@ -1,5 +1,6 @@
 const sequelize  = require('../database')
 
+const Patient = require('../models/Patient');
 const PatientCreate = require('../services/Patient/CreatePatientService');
 const UserCreate = require('../services/User/CreateUserService');
 
