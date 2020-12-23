@@ -19,11 +19,9 @@ async function AutheticationUser ({email, password}) {
     throw new Error({ error: 'Email or password incorrect'});
   }
 
-  const {secret, expiresIn} = authConfig.jwt; 
-
   const token = sign({ id: user.id, email: user.email },
-    secret, 
-    { subject: String(user.id), expiresIn: expiresIn}
+    authConfig.jwt.secret, 
+    { subject: String(user.id), expiresIn: authConfig.jwt.expiresIn}
   )
 
   delete user.password;
