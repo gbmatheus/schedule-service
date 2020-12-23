@@ -3,7 +3,7 @@ const DoctorController = require('../controllers/DoctorController');
 
 const routeDoctor = Router();
 
-routeDoctor.get('/', DoctorController.index);
-routeDoctor.post('/', DoctorController.store);
+routeDoctor.get('/doctors', DoctorController.index);
+routeDoctor.post('/doctors', DoctorController.store);
 
 module.exports = routeDoctor;
