@@ -1,7 +1,7 @@
-const sequelize = require('../database');
+const sequelize = require('../../database');
 
-const User = require('../models/User');
-const UserCreate = require('../services/User/CreateUserService');
+const User = require('../../models/User');
+const UserCreate = require('../../services/User/CreateUserService');
 
 module.exports = {
   async index (req, res) {
