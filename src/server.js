@@ -3,8 +3,6 @@ const cors = require('cors');
 
 const routes = require('./routes/index');
 
-require('./database');
-
 const app = express();
 
 app.use(cors());
